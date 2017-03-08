@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <base target="_top">
+    <title><?= title ?></title>
+    <!-- Bootstrap -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.2/css/bootstrap.min.css">
+
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    <script src="https://oss.maxcdn.com/html5shiv/3.7.2/html5shiv.min.js"></script>
+    <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
+    <![endif]-->
+  <style>
+  body {
+    padding-top: 50px;
+  }
+  .mainpanel {
+    padding: 40px 15px;
+  }
+  .logpanel {
+    width: 100%;
+  }
+  </style>
+
+  </head>
+  <body>
+    <nav class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+      <div class="navbar-header">
+        <div class="navbar-brand"><?= title ?></div>
+      </div>
+    </div>
+    </nav>
+
+    <br>
+
+    <div class="container">
+    <!--<form>
+        <div class="form-group">
+            <label>メールアドレス：　</label>
+            <label><?= mailaddr ?></label>
+            <p><?= calendar ?></p>
+        </div>
+
+        名前（苗字）：
+        <input type="text" name="staffname" id="input"/><p>
+        <br>
+
+        <button type="submit" class="btn btn-danger"><?= buttonname ?></button>
+    </form> -->
+
+   <form method="post" action="https://script.google.com/a/macros/tsunolab.net/s/AKfycby4Nf3wv3U_v2duHxgo7gzHgGlYxd0FKznCWGIGDEk/dev">
+    <p>
+      <label><?= putonmonth ?>月のシフトを貼り付けます</label>
+    </p>
+    <p>
+      <label>メールアドレス：　<?= mailaddr ?></label>
+    </p>
+    <p>
+      <label>名前（苗字）：</label>
+    <select id="name" name="staffname">
+         <?
+           var Datetime = new Date();
+           var month = Datetime.getMonth()+1;
+
+           var ss  = SpreadsheetApp.openById('1QjAblUNiY21ynf-NCiYM0awkx5GPy7x0RbLuUFzahFE');
+           var sheet = ss.getSheetByName(month + '月');
+           var parttimeName = sheet.getRange("A5:A13").getValues();
+           for(var i=0; i<parttimeName.length; i++){
+             output.append('<option value="'+ parttimeName[i] +'">' + parttimeName[i] + '</option>');
+           }
+         ?>
+    </select>
+    </p>
+    <p>
+      <input class="btn btn-danger" type="submit" value="Googleカレンダーに貼り付け">
+    </p>
+  </form>
+    </div>
+  </body>
+</html>
